@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Wellness Monitor</title>
+    <style>
+        body { font-family: Arial; background:#f4f4f4; padding:20px; }
+        .container { max-width: 600px; margin:auto; background:white; padding:20px; border-radius:10px; }
+        textarea { width:100%; height:100px; }
+        button { padding:10px 20px; margin-top:10px; }
+        .log { margin-top:20px; padding:10px; background:#eef; border-radius:5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🌿 Student Wellness Monitor</h2>
+        <form method="POST">
+            <textarea name="mood" placeholder="How are you feeling today?"></textarea><br>
+            <button type="submit">Submit</button>
+        </form>
+        
+        <div style="margin-top:20px;">{{ message|safe }}</div>
+        
+        {% if chart_path %}
+            <h3>📊 Mood Trend</h3>
+            <img src="{{ chart_path }}" width="100%">
+        {% endif %}
+        
+        <h3>📝 Mood Log</h3>
+        {% for entry in mood_log %}
+            <div class="log">
+                {{ entry.date }} → <b>{{ entry.mood }}</b>: {{ entry.text }}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
